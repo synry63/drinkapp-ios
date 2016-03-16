@@ -1,0 +1,82 @@
+<ion-view>
+  <ion-nav-title>
+    <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+  </ion-nav-title>
+ <ion-content id="account-view">
+    <h3 class="title">Mi Cuenta</h3>
+     <div class="item item-last">
+       <button ng-if="user_last_order" ng-click="lastPedido(user_last_order.id)" class="button button-assertive">
+         Realizar ultimo pedido
+       </button>
+       <div class="logout-wrap">
+         <button  ng-click="doLogout()" class="button button-icon button-clear button-small button-dark icon ion-log-out">
+           Cerrar session
+         </button>
+       </div>
+     </div>
+   <div class="list">
+     <div class="item item-divider user-data">
+       <button ng-click="editDataModal()" class="button button-icon button-clear button-small button-dark icon ion-compose add-dir">
+         Editar Datos Personales
+       </button>
+       Mis Datos :
+     </div>
+     <div class="item user-data">
+       <b>Nombre(s) :</b> {{user.nombre}}
+     </div>
+     <div class="item user-data">
+       <b>Apellido(s) :</b> {{user.apellidos}}
+     </div>
+     <div class="item user-data">
+       <b>Email :</b> {{user.email}}
+     </div>
+     <div class="item user-data">
+       <b>Celular :</b> {{user.celular}}
+     </div>
+     <div class="item item-divider user-data">
+       Puntos DrinkApp :
+     </div>
+     <div class="item user-data">
+       <b>100 puntos = </b> Whisky J. W. Gold Label 750ml
+     </div>
+     <div class="item user-data">
+       <b>75 puntos = </b> Whisky J.W. Black Label 750ml
+     </div>
+     <div class="item user-data">
+       <b>50 puntos = </b> Viñas de Oro 750ml
+     </div>
+     <div class="item user-data">
+       <b>30 puntos = </b> 4 Red Bull 250ml
+     </div>
+     <div class="item user-data">
+       <b>Mis puntos : </b> {{user.puntos}}
+     </div>
+     <div class="item item-divider user-data">
+       <button ng-click="addDirModal()" class="button button-icon button-clear button-small button-dark icon ion-compose add-dir">
+         Agregar Una Dirección
+       </button>
+       Dirección(es) :
+     </div>
+     <ion-list show-delete="showDelete" can-swipe="listCanSwipe">
+       <ion-item ng-repeat="dir in user.direcciones">
+        {{dir.custom_name}}
+         <ion-option-button class="button button-assertive"
+                            ng-click="doDeleteDirection(dir)">
+           Borrar
+         </ion-option-button>
+         <ion-option-button class="button button-calm"
+                            ng-click="editDirModal(dir)">
+           Editar
+         </ion-option-button>
+       </ion-item>
+     </ion-list>
+     <!--<div class="item" ng-class="{ 'hidden-obj' : user_last_order}">
+       <button  ng-click="lastPedido(user_last_order.id)" class="button button-assertive">
+         Realizar ultimo pedido
+       </button>
+     </div>-->
+
+   </div>
+
+  </ion-content>
+</ion-view>

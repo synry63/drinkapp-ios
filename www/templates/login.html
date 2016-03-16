@@ -1,0 +1,44 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">CONEXIÓN</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Cerrar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content id="form-login-popup">
+    <form name="loginform" novalidate="" ng-submit="doLogin(loginform)">
+      <div class="list">
+        <ion-spinner class="spinner-assertive" ng-if="loading == true"></ion-spinner>
+        <p ng-if="error_server" class="item error">{{error_server}}</p>
+        <p ng-if="success_server" class="item success">{{success_server}}</p>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input name="email" type="email" ng-model="loginData.email" required>
+        </label>
+        <div class="error-container" ng-show="loginform.email.$error && loginform.$submitted" ng-messages="loginform.email.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input">
+          <span class="input-label">Contraseña</span>
+          <input name="password" type="password" ng-model="loginData.password" required>
+        </label>
+        <div class="error-container" ng-show="loginform.password.$error && loginform.$submitted" ng-messages="loginform.password.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item">
+          <button class="button button-block button-assertive" ng-disabled="loading" type="submit">Iniciar sesión</button>
+		  <div style="text-align: center" class="">		
+            o registrate al hacer el Pedido		
+          </div>
+        </label>
+      </div>
+    </form>
+	<div class="item bottom">		
+      <button class="button button-block button-positive login-basic" ng-disabled="loading" ng-click="fbLogin()">		
+        <span>Iniciar sesión con Facebook</span><i class="ion-social-facebook"></i>		
+      </button>		
+    </div>
+  </ion-content>
+</ion-modal-view>

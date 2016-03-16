@@ -1,0 +1,80 @@
+<div class="modal">
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary">
+
+    <h1 class="title">AGREGAR DIRECCIÓN</h1>
+    <button class="button button-clear" ng-click="closeModalData(2)">Cancelar</button>
+  </ion-header-bar>
+  <!-- Modal content area -->
+  <ion-content>
+
+    <form class="dir-form" name="directionForm" novalidate="" ng-submit="doAddDirection(directionForm)">
+      <div class="list">
+        <ion-spinner class="spinner-assertive" ng-if="loading == true"></ion-spinner>
+        <p ng-if="error_server" class="item error">{{error_server}}</p>
+        <p ng-if="success_server" class="item success">{{success_server}}</p>
+
+        <!--<label class="item item-input item-select" ng-class="{ 'has-errors' : directionForm.nombre.$invalid && directionForm.$submitted, 'no-errors' : directionForm.nombre.$valid && directionForm.$submitted}">
+          <div class="input-label">Este lugar es</div>
+          <select ng-change="updateName(1)" id="nombre" name="nombre" ng-model="new_dir.nombre" required>
+            <!--<option value="" disabled hidden></option>
+            <option value="Mi casa">Mi casa</option>
+            <option value="Mi trabajo">Mi trabajo</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+        <div class="error-container" ng-show="directionForm.nombre.$error && directionForm.$submitted" ng-messages="directionForm.nombre.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>-->
+
+          <!--<label ng-if="new_dir.is_other_name" class="item item-input" ng-class="{ 'has-errors' : directionForm.custom_name.$invalid && directionForm.$submitted, 'no-errors' : directionForm.custom_name.$valid && directionForm.$submitted}">-->
+          <label class="item item-input" ng-class="{ 'has-errors' : directionForm.custom_name.$invalid && directionForm.$submitted, 'no-errors' : directionForm.custom_name.$valid && directionForm.$submitted}">
+          <span class="input-label">Este lugar es</span>
+            <input name="custom_name" type="text" placeholder="Ingresar un nombre. Ejemplo : 'Mi casa'" ng-model="new_dir.custom_name" ng-minlength="4" required>
+          </label>
+          <div class="error-container" ng-show="directionForm.custom_name.$error && directionForm.$submitted" ng-messages="directionForm.custom_name.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+
+          <label class="item item-input" ng-class="{ 'has-errors' : directionForm.calle.$invalid && directionForm.$submitted, 'no-errors' : directionForm.calle.$valid && directionForm.$submitted}">
+            <span class="input-label">Dirección</span>
+            <input name="calle" type="text" placeholder="Ingresa una dirección" ng-model="new_dir.calle" required>
+          </label>
+          <div class="error-container" ng-show="directionForm.calle.$error && directionForm.$submitted" ng-messages="directionForm.calle.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label class="item item-input item-select" ng-class="{ 'has-errors' : directionForm.distrito.$invalid && directionForm.$submitted, 'no-errors' : authorizationForm.nombre.$valid && authorizationForm.$submitted}">
+            <div class="input-label">Distrito</div>
+            <select id="distrito" name="distrito" ng-init="new_dir.distrito=''" ng-model="new_dir.distrito" required>
+              <!--<option value="" disabled hidden></option>-->
+              <option value="san-isidro">San Isidro</option>
+              <option value="san-borja">San Borja</option>
+              <!--<option value="la-molina">La Molina</option>-->
+              <option value="miraflores">Miraflores</option>
+              <option value="surco">Surco</option>
+          </select>
+        </label>
+        <div class="error-container" ng-show="directionForm.distrito.$error && directionForm.$submitted" ng-messages="directionForm.distrito.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input" ng-class="{ 'has-errors' : directionForm.referencias.$invalid && directionForm.$submitted, 'no-errors' : directionForm.referencias.$valid && directionForm.$submitted}">
+          <span class="input-label">Referencias</span>
+          <input name="referencias" type="text" placeholder="Ingresa una referencia" ng-model="new_dir.referencias">
+        </label>
+        <div class="error-container" ng-show="directionForm.referencias.$error && directionForm.$submitted" ng-messages="directionForm.referencias.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-assertive">Validar
+        </button>
+      </div>
+    </form>
+
+  </ion-content>
+
+</div>

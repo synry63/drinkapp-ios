@@ -1,0 +1,55 @@
+<div class="modal">
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary">
+
+    <h1 class="title">EDITAR DATOS PERSONALES</h1>
+    <button class="button button-clear" ng-click="closeModalData(1)">Cancelar</button>
+  </ion-header-bar>
+  <!-- Modal content area -->
+  <ion-content>
+
+    <form name="authorizationForm" novalidate="" ng-submit="doUserDataUpdate(authorizationForm)" ng-model-options="{ updateOn: 'submit' }">
+      <div class="list">
+        <ion-spinner class="spinner-assertive" ng-if="loading == true"></ion-spinner>
+        <p ng-if="error_server" class="item error">{{error_server}}</p>
+        <p ng-if="success_server" class="item success">{{success_server}}</p>
+
+        <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.nombre.$invalid && authorizationForm.$submitted, 'no-errors' : authorizationForm.nombre.$valid && authorizationForm.$submitted}">
+          <span class="input-label">Nombre(s)</span>
+          <input name="nombre" type="text" placeholder="Ingresa tu(s) nombre(s)" ng-model="user.nombre"  required>
+        </label>
+        <div class="error-container" ng-show="authorizationForm.nombre.$error && authorizationForm.$submitted" ng-messages="authorizationForm.nombre.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.apellidos.$invalid && authorizationForm.$submitted, 'no-errors' : authorizationForm.apellidos.$valid && authorizationForm.$submitted}">
+          <span class="input-label">Apellido(s)</span>
+          <input name="apellidos" type="text" placeholder="Ingresa tu(s) apellidos(s)" ng-model="user.apellidos" required>
+        </label>
+        <div class="error-container" ng-show="authorizationForm.apellidos.$error && authorizationForm.$submitted" ng-messages="authorizationForm.apellidos.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input name="email" type="email" ng-readonly="true" placeholder="Ingresa tu email" ng-model="user.email">
+        </label>
+
+        <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.celular.$invalid && authorizationForm.$submitted, 'no-errors' : authorizationForm.celular.$valid && authorizationForm.$submitted}">
+          <span class="input-label">Celular</span>
+          <input name="celular" ng-pattern="/^[0-9]\d{8}$/" type="text" placeholder="Ingresa tu numero de celular" ng-model="user.celular" required>
+        </label>
+        <div class="error-container" ng-show="authorizationForm.celular.$error && authorizationForm.$submitted" ng-messages="authorizationForm.celular.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-assertive">Validar
+        </button>
+      </div>
+    </form>
+
+  </ion-content>
+
+</div>

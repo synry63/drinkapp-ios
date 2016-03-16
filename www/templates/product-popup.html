@@ -1,0 +1,15 @@
+<div class="my-header-popup">
+  <div class="button button-clear button-assertive" ng-click="closePopup();"><span class="icon ion-close"></span></div>
+</div>
+<div class="popup-item">
+  <img src="{{p.img_u_r_l}}"/>
+  <p>{{p.nombre}}</p>
+  <div class="select-quantity">
+    <div class="row row-center">
+      <div class="col"><button on-tap="onTapDecrement()" class="button button-clear button-assertive" ng-click=""><i class="icon ion-minus"></i></button></div>
+      <div class="col"><input ng-readonly="true" style="background-color: white" id="input-quantity" type="text" ng-model="data.quantity"></div>
+      <div class="col"><button on-tap="onTapIncrement()" class="button button-clear button-assertive" ng-click=""><i class="icon ion-plus"></i></button></div>
+    </div>
+  </div>
+
+</div>

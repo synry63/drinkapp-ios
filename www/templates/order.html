@@ -1,0 +1,53 @@
+<ion-view view-title="Pedido">
+  <ion-nav-title>
+    <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+  </ion-nav-title>
+  <ion-content id="order-view">
+    <h3 class="title">RESUMEN DE ORDEN</h3>
+    <div ng-if="order_items.length>0">
+      <div class="buttons">
+        <button class="button button-icon button-clear icon ion-trash-b"
+                ng-click="showDelete = !showDelete; showReorder = false">
+          Eliminar Producto
+        </button>
+      </div>
+      <ion-list show-delete="showDelete" can-swipe="listCanSwipe">
+        <ion-item ng-repeat="item in order_items"  class="item-thumbnail-left order-item">
+            <img style="max-height: 100px;top:0px" ng-src="{{item.p.img_u_r_l}}">
+            <p class="order-item-quantity"><span class="quantity-text">Cantidad : </span><span class="quantity">{{item.q}}</span></p>
+            <h2>{{item.p.nombre}}</h2>
+            <p>S/. {{item.p.price}}</p>
+            <p class="quantity-change">
+              <span class="ion-arrow-swap"></span><span>slide cambiar cantidad.</span>
+            </p>
+            <ion-option-button class="ion-minus button-assertive"
+                               ng-click="remove_quantity(item.p)">
+            </ion-option-button>
+          <ion-option-button class="ion-plus button-assertive"
+                             ng-click="add_quantity(item.p)">
+          </ion-option-button>
+            <ion-delete-button class="ion-minus-circled button-clear"
+                               ng-click="remove_product($index)">
+            </ion-delete-button>
+        </ion-item>
+      </ion-list>
+      <div class="item total-amount">
+        <p>cargo por delivery : <span>S/. 3.50</span></p>
+        <p>TOTAL A PAGAR : <span class="total">S/. {{total_order_amount}}</span></p>
+      </div>
+      <div class="item to-pay-bottom">
+        <span>pedido mínimo 50 soles.</span>
+        <a ng-disabled="is_go_checkout_ok" href="#/app/checkout" class="button button-block button-assertive">
+          PAGAR
+        </a>
+      </div>
+
+
+
+    </div>
+    <div style="text-align: center" ng-if="order_items.length==0">
+      <p>El carrito está vacío.</p>
+      <img style="margin-top: 15%;" width="80%" src="img/carrito_vacio-01.svg">
+    </div>
+  </ion-content>
+</ion-view>

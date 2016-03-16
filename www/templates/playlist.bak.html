@@ -1,0 +1,29 @@
+<ion-view view-title="{{categoryWithProducts.title}}">
+  <ion-nav-title>
+  <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+</ion-nav-title>
+  <ion-content overflow-scroll = "true" has-footer="true" id="product-view">
+    <!--<img  src="{{categoryWithProducts.categoryurlpic}}"/>
+    <p>{{categoryWithProducts.title}}</p>-->
+    <h3 class="title">{{categoryWithProducts.title}}</h3>
+    <ion-list ng-repeat="row in categoryWithProducts.rows track by $index">
+        <div  class="row">
+            <div class="col col-50" ng-repeat="product in row track by $index">
+              <a ng-controller="PopupCtrl" ng-click="showPopup(product)" class="button item-container">
+                <img  src="{{product.product_image}}"/>
+                <div class="item-info">
+                  <p class="item-title">{{product.title}}</p>
+                  <p class="item-price">S/. {{product.price}}</p>
+                </div>
+              </a>
+            </div>
+        </div>
+    </ion-list>
+    <!--<div class="buttons">
+      <button class="button button-clear" ng-controller="ModalProductCtrl" ng-click="openModal()">Close</button>
+    </div>
+    <button class="button button-dark" ng-controller="PopupCtrl" ng-click="showPopup()">
+      show
+    </button>-->
+  </ion-content>
+</ion-view>

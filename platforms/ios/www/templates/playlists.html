@@ -1,0 +1,30 @@
+<ion-view view-title="Categorias">
+  <ion-nav-title>
+    <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+  </ion-nav-title>
+  <ion-content id="category-view">
+
+
+    <ion-slide-box class="img-box-slider" does-continue="true" auto-play="true">
+
+      <ion-slide bindonce  ng-repeat="a_promo in promociones">
+         <div class="box">
+           <a href="#/app/playlists/{{playlists[0].id}}"><img bo-src="a_promo"/>
+           </a>
+         </div>
+       </ion-slide>
+    </ion-slide-box>
+    <div class="loader-wraper" ng-if="loading == true">
+      <p>CARGANDO...</p>
+      <ion-spinner class="spinner-assertive"></ion-spinner>
+    </div>	
+    <ion-list>
+        <a class="item item-avatar" bindonce  ng-repeat="playlist in playlists" bo-href="'#/app/playlists/'+playlist.id">
+              <img bo-src="playlist.img_u_r_l">
+              <i style="float: right" class="icon ion-chevron-right"></i>
+              <h2 bo-bind="playlist.nombre"></h2>
+        </a>
+    </ion-list>
+  </ion-content>
+
+</ion-view>

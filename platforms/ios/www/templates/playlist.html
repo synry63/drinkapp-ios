@@ -1,0 +1,31 @@
+<ion-view view-title="{{categoryWithProducts.title}}">
+  <ion-nav-title>
+  <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+</ion-nav-title>
+  <ion-content id="product-view">
+    <!--<img  src="{{categoryWithProducts.categoryurlpic}}"/>
+    <p>{{categoryWithProducts.title}}</p>-->
+    <h3 bindonce bo-bind="categoryWithProducts.title" class="title"></h3>
+    <ion-list ng-repeat="row in categoryWithProducts.rows track by $index">
+        <div  class="row">
+            <div class="col col-50" ng-repeat="product in row track by $index">
+              <a ng-controller="PopupCtrl" ng-click="showPopup(product)" class="button item-container">
+                <!--<img  bo-src="product.img_u_r_l"/>-->
+				<img  ng-src="{{product.img_u_r_l}}"/>
+                <div class="item-info">
+				  <p class="item-title">{{product.nombre}}</p>
+                  <!--<p bo-bind="'S/. '+product.price" class="item-price"></p>-->
+                  <p class="item-price">S/. {{product.price}}</p>
+                </div>
+              </a>
+            </div>
+        </div>
+    </ion-list>
+    <!--<div class="buttons">
+      <button class="button button-clear" ng-controller="ModalProductCtrl" ng-click="openModal()">Close</button>
+    </div>
+    <button class="button button-dark" ng-controller="PopupCtrl" ng-click="showPopup()">
+      show
+    </button>-->
+  </ion-content>
+</ion-view>

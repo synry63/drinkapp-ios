@@ -1,0 +1,226 @@
+<ion-view view-title="Pago">
+  <ion-nav-title>
+    <img  src="img/DRINKAPP_LOGOTIPO_2-06.svg">
+  </ion-nav-title>
+  <ion-content id="checkout-view">
+    <h3 class="title">FORMULARIO DE PAGO</h3>
+    <div ng-if="user.id==0">
+      <button class="item button button-block button-positive" ng-click="login()">
+        Iniciar sesión
+      </button>
+      <div style="text-align: center" class="item">
+        O registrate al hacer el Pedido
+      </div>
+    </div>
+    <form ng-submit="doPedido($event)" id="pedidoForm" ng-init="initCheckoutForm()"  name="pedidoForm" novalidate="">
+      <ion-list>
+        <div class="item" style="text-align: center">
+          <ion-spinner class="spinner-assertive" ng-if="loading == true"></ion-spinner>
+          <p  ng-if="error_server" class="item error">{{error_server}}</p>
+        </div>
+        <div class="item item-divider">
+          Mis Datos :
+        </div>
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.nombre.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.nombre.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Nombres :</span>
+          <input name="nombre" type="text" placeholder="Pedro" ng-model="user.nombre" required>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.nombre.$error && pedidoForm.$submitted" ng-messages="pedidoForm.nombre.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.apellidos.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.apellidos.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Apellidos :</span>
+          <input name="apellidos" type="text" placeholder="Rivera Pastor" ng-model="user.apellidos" required>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.apellidos.$error && pedidoForm.$submitted" ng-messages="pedidoForm.apellidos.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Correo Electrónico :</span>
+          <input name="email" type="email" placeholder="pedro_78@hotmail.com" ng-readonly="email_read_only" ng-model="user.email" required>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.email.$error && pedidoForm.$submitted" ng-messages="pedidoForm.email.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.celular.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.celular.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Celular :</span>
+          <input name="celular" ng-pattern="/[0-9]\d{8}$/" type="text" placeholder="987564288" ng-model="user.celular" required>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.celular.$error && pedidoForm.$submitted" ng-messages="pedidoForm.celular.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+        <!--<label class="item item-input item-stacked-label">
+          <span class="input-label">DNI :</span>
+          <input type="tel" placeholder="47124589">
+        </label>-->
+
+        <div ng-if="user.id==0">
+          <!--<label>
+            <ion-toggle ng-model="password_state.checked"  ng-change="pushPasswordNotificationChange()">
+              Crear Cuenta ? :
+            </ion-toggle>
+          </label>-->
+          <label ng-show="password_state.checked==true" class="item item-input item-stacked-label before my-show-hide-animation">
+            <span class="input-label">Contraseña :</span>
+            <input name="password" type="password" ng-model="user.password"  placeholder="trewq8w74" required>
+          </label>
+          <div class="error-container" ng-show="password_state.checked==true && pedidoForm.password.$error && pedidoForm.$submitted" ng-messages="pedidoForm.password.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label ng-show="password_state.checked==true" class="item item-input item-stacked-label before my-show-hide-animation">
+            <span class="input-label">Confirmar contraseña :</span>
+            <input name="confirmPassword" type="password" ng-model="user.confirmPassword" compare-to="user.password"  placeholder="trewq8w74" required>
+          </label>
+          <div class="error-container" ng-show="password_state.checked==true && pedidoForm.confirmPassword.$error && pedidoForm.$submitted" ng-messages="pedidoForm.confirmPassword.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+        </div>
+        <!--<label class="item item-input item-stacked-label"><span class="input-label"> Distrito :</span>
+        <select style="float: right;position: relative;top:4px;right: 22px;background: black;color:white"
+                name="singleSelect" ng-model="data.singleSelect">
+          <option value="">---Distrito---</option>
+          <option value="option-1">San Isidro</option>
+          <option value="option-2">La Molina</option>
+          <option value="option-2">Miraflores</option>
+          <option value="option-2">San Borja</option>
+        </select>
+        </label>-->
+          <div class="item item-divider">
+            Datos de Envio :
+          </div>
+          <label ng-if="user.id!=0" class="item item-input item-select" ng-class="{ 'has-errors' : directionForm.dir_selected.$invalid && directionForm.$submitted, 'no-errors' : directionForm.dir_selected.$valid && directionForm.$submitted}">
+            <div class="input-label">Aqui :</div>
+            <!--<select ng-change="updateName()" ng-repeat="" id="nombre" name="nombre" ng-init="dir.nombre=''" ng-model="dir.nombre" required>
+              <option value="Mi casa">Mi casa</option>
+              <option value="Mi trabajo">Mi trabajo</option>
+              <option value="other">Otro</option>
+            </select>-->
+
+            <select name="dir_selected" ng-change="updateDir(selected)"  ng-options="dir as dir.custom_name for dir in direcciones track by dir.id" ng-model="selected" required>
+              <option value="">-- Selecionar lugar --</option>
+            </select>
+            <!--<select name="dir_selected" ng-init="test()" ng-change="updateDir(selected)" ng-model="selected" required>
+              <option value="">-- Selecionar lugar --</option>
+              <option ng-repeat="a_dir in user.direcciones" value="{{a_dir}}">{{a_dir.custom_name}}</option>
+              <option value="0">Otro</option>
+            </select>-->
+          </label>
+          <div class="error-container" ng-show="pedidoForm.dir_selected.$error && pedidoForm.$submitted" ng-messages="pedidoForm.dir_selected.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label ng-if="dir.id==0 || user.id==0" class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.custom_name.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.custom_name.$valid && pedidoForm.$submitted}">
+            <span class="input-label">Nombre del lugar :</span>
+            <input name="custom_name" type="text" placeholder="Ingresar un nombre. Ejemplo : 'Mi casa'" ng-model="dir.value" required>
+          </label>
+          <div class="error-container" ng-show="pedidoForm.custom_name.$error && pedidoForm.$submitted" ng-messages="pedidoForm.custom_name.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.calle.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.calle.$valid && pedidoForm.$submitted}">
+            <span class="input-label">Dirección :</span>
+            <input name="calle" type="text" placeholder="Ingresa una dirección" ng-model="dir.calle" required>
+          </label>
+          <div class="error-container" ng-show="pedidoForm.calle.$error && pedidoForm.$submitted" ng-messages="pedidoForm.calle.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label class="item item-input item-select" ng-class="{ 'has-errors' : pedidoForm.distrito.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.nombre.$valid && pedidoForm.$submitted}">
+            <span class="input-label">Distrito :</span>
+            <select id="distrito" name="distrito" ng-model="dir.distrito" required>
+              <option value="">-- Selecionar distrito --</option>
+              <!--<option value="" disabled hidden></option>-->
+              <option value="san-isidro">San Isidro</option>
+              <!--<option value="la-molina">La Molina</option>-->
+              <option value="san-borja">San Borja</option>
+            </select>
+          </label>
+          <div class="error-container" ng-show="pedidoForm.distrito.$error && pedidoForm.$submitted" ng-messages="pedidoForm.distrito.$error">
+            <div ng-messages-include="templates/errors.html"></div>
+          </div>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Referencias :</span>
+            <input name="referencias" type="text" placeholder="Ingresa una referencia" ng-model="dir.referencias">
+          </label>
+          <div class="item item-divider">
+            Resumen de orden :
+          </div>
+          <div class="item" ng-repeat="order_item in order">
+            {{order_item.q}} x {{order_item.p.nombre}}
+          </div>
+          <div class="item" style="text-align: right" ng-if="total_to_pay>0">
+            Total A Pagar : <b>S/. {{total_to_pay}}</b>
+          </div>
+          <div class="item item-divider">
+            Methodo de pago :
+          </div>
+          <!--<ion-radio ng-model="payment_type" ng-value="'1'">Choose A</ion-radio>
+          <ion-radio ng-model="payment_type" ng-value="'2'">Choose B</ion-radio>
+          <ion-radio ng-model="payment_type" ng-value="'3'">Choose C</ion-radio>-->
+          <label class="item item-radio" ng-class="{ 'has-errors' : pedidoForm.payment_type.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.payment_type.$valid && pedidoForm.$submitted}">
+            <input  type="radio" ng-model="payment_type" ng-change="changePaymentType(payment_type)" ng-value="1" name="payment_type" required>
+            <div class="item-content">
+              POS Mastercard
+            </div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+
+          <label class="item item-radio" ng-class="{ 'has-errors' : pedidoForm.payment_type.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.payment_type.$valid && pedidoForm.$submitted}">
+            <input type="radio" ng-model="payment_type" ng-change="changePaymentType(payment_type)" ng-value="2" name="payment_type" required>
+            <div class="item-content">
+              POS Visa
+            </div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+
+          <label class="item item-radio" ng-class="{ 'has-errors' : pedidoForm.payment_type.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.payment_type.$valid && pedidoForm.$submitted}">
+            <input type="radio" ng-model="payment_type" ng-change="changePaymentType(payment_type)" ng-value="3" name="payment_type" required>
+            <div class="item-content">
+              Effectivo
+            </div>
+            <i class="radio-icon ion-checkmark"></i>
+          </label>
+        <div class="error-container" ng-show="pedidoForm.payment_type.$error && pedidoForm.$submitted" ng-messages="pedidoForm.payment_type.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label ng-if="payment_type==3" class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.pagoEffectivoCantidad.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.pagoEffectivoCantidad.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Monto :</span>
+          <input name="pagoEffectivoCantidad" type="number" placeholder="Ingresa el monto" ng-model="pagoEffectivoCantidad.amount" required>
+        </label>
+      <div class="error-container" ng-show="pedidoForm.pagoEffectivoCantidad.$error && pedidoForm.$submitted" ng-messages="pedidoForm.pagoEffectivoCantidad.$error">
+        <div ng-messages-include="templates/errors.html"></div>
+      </div>
+        <!--
+        <label ng-if="user.direcciones.length==0 || user.id==0" class="item item-input item-select" ng-class="{ 'has-errors' : pedidoForm.comingfrom_type.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.comingfrom_type.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Como nos conosiste ? :</span>
+          <select  id="comingfrom_type" ng-change="updateComingFrom(comingfrom.type)" name="comingfrom_type" ng-model="comingfrom.type" required>
+            <option value="">-- Selecionar --</option>
+            <option value="facebook">Facebook</option>
+            <option value="a-friend">Un amigo</option>
+          </select>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.comingfrom_type.$error && pedidoForm.$submitted" ng-messages="pedidoForm.comingfrom_type.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>
+
+        <label ng-if="comingfrom.type=='a-friend'" class="item item-input item-stacked-label" ng-class="{ 'has-errors' : pedidoForm.comingfrom_text.$invalid && pedidoForm.$submitted, 'no-errors' : pedidoForm.comingfrom_text.$valid && pedidoForm.$submitted}">
+          <span class="input-label">Correo electronico de tu amigo :</span>
+          <input name="comingfrom_text" type="email" placeholder="Ingresar el correo de tu amigo" ng-model="comingfrom.text" required>
+        </label>
+        <div class="error-container" ng-show="pedidoForm.comingfrom_text.$error && pedidoForm.$submitted" ng-messages="pedidoForm.comingfrom_text.$error">
+          <div ng-messages-include="templates/errors.html"></div>
+        </div>-->
+
+        <label class="item">
+          <button class="button button-block button-assertive" ng-disabled="loading" type="submit">REALIZAR PEDIDO</button>
+        </label>
+        </ion-list>
+    </form>
+  </ion-content>
+</ion-view>

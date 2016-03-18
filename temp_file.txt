@@ -1,1 +1,0 @@
-cordova -d plugin add /Users/patrickmary/Dropbox/wamp/www/phonegap-facebook-plugin --variable APP_ID="627574917383986" --variable APP_NAME="DrinkApp"

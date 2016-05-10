@@ -127,6 +127,7 @@ angular.module('starter.controllers', [])
 
     Order.initMasterScope($scope);
     $scope.order_count = Order.getCurrentOrderCount();
+	$scope.free_delivery = Order.is_free_delivery();
     $scope.total_order_amount = Order.getOrderAmount();
   // Form data for the login modal
   $scope.loginData = {};
@@ -440,6 +441,7 @@ angular.module('starter.controllers', [])
         if(resultCode==200){
           var $app_scope = Order.getMasterScope();
           $app_scope.order_count = Order.getCurrentOrderCount();
+		  $app_scope.free_delivery = Order.is_free_delivery();
           $app_scope.total_order_amount = Order.getOrderAmount();
           $state.go('app.order');
 
@@ -584,10 +586,12 @@ angular.module('starter.controllers', [])
 .controller('PlaylistsCtrl', function($scope,$ionicPlatform,$rootScope,$http,$ionicPopup,$ionicSlideBoxDelegate,Playlist,Order,User) {
 
     var $app_scope =  Order.getMasterScope();
+	User.update_popup_promo_corona(false);
     $scope.loading = true;
 	
 	$ionicPlatform.on('resume', function() {
       $scope.loading = true;
+	  User.update_popup_promo_corona(false);
       Playlist.getPlaylists(function(playlists){
         //console.log(playlists);
         $scope.promociones = playlists[0].promocional_img_slider.split(';');
@@ -662,7 +666,7 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('PopupCtrl',function($scope,$rootScope, $ionicPopup, $timeout,Order) {
+  .controller('PopupCtrl',function($scope,$rootScope, $ionicPopup, $timeout,Order,User) {
     /*$scope.showPopup = function(p) {
       $scope.data = {};
       $scope.p = p;
@@ -734,9 +738,28 @@ angular.module('starter.controllers', [])
       }
       myPopup.then(function(res) {
         if(res!=undefined){
+		  if(User.is_promo_view()==false){
+            $timeout(function(){
+                // show popup
+                var coronaPopup = $ionicPopup.show({
+                  //template: '<input type="password" ng-model="data.wifi">',
+                  templateUrl: 'templates/corona-popup.html',
+                  scope: $scope,
+                  //cssClass: 'age-check-popup', // String, The custom CSS class name
+                  buttons: [
+                  ]
+                });
+                $scope.closePopup = function() {
+                  coronaPopup.close();
+                };
+
+            },500);
+            User.update_popup_promo_corona(true);
+          }
           Order.addProductToOrder($scope.p,res);
           var $app_scope = Order.getMasterScope();
           $app_scope.order_count = Order.getCurrentOrderCount();
+		  $app_scope.free_delivery = Order.is_free_delivery();
           $app_scope.total_order_amount = Order.getOrderAmount();
           //console.log('Tapped!', res);
         }
@@ -891,6 +914,7 @@ angular.module('starter.controllers', [])
             Order.clearOrder();
             var $app_scope = Order.getMasterScope();
             $app_scope.order_count = Order.getCurrentOrderCount();
+			$app_scope.free_delivery = Order.is_free_delivery();
             $app_scope.total_order_amount = Order.getOrderAmount();
             delete $scope.success_server;
             delete $scope.error_server;
@@ -964,6 +988,7 @@ angular.module('starter.controllers', [])
     $scope.shouldShowDelete = false;
     $scope.listCanSwipe = true;
     $scope.order_items = Order.getCurrentOrder();
+	$scope.free_delivery = Order.is_free_delivery();
     $scope.total_order_amount = Order.getOrderAmount();
     $scope.is_go_checkout_ok = Order.is_min_amount_ok();
 
@@ -986,6 +1011,7 @@ angular.module('starter.controllers', [])
     }
     $scope.remove_product = function(index){
       $scope.order_items.splice(index, 1);
+	  $scope.free_delivery = Order.is_free_delivery();
       var new_amount = Order.getOrderAmount();
       $scope.is_go_checkout_ok = Order.is_min_amount_ok();
       var new_count = Order.getCurrentOrderCount();

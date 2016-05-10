@@ -32,7 +32,10 @@
         </ion-item>
       </ion-list>
       <div class="item total-amount">
-        <p>cargo por delivery : <span>S/. 3.50</span></p>
+		<p>cargo por delivery :
+          <span ng-if="free_delivery==false">S/. 3.50</span>
+          <span ng-if="free_delivery==true">S/. 0.00</span>
+        </p>
         <p>TOTAL A PAGAR : <span class="total">S/. {{total_order_amount}}</span></p>
       </div>
       <div class="item to-pay-bottom">

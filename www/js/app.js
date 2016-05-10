@@ -480,7 +480,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
         free_delivery = false;
         return false;
 
-      }
+      },
       getOrderAmount:function(){
         var amount = 0;
         for (var i=0;i<order.pList.length;i++){

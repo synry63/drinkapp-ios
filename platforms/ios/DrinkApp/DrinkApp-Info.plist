@@ -281,6 +281,24 @@
           <string>fb627574917383986</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb627574917383986</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb627574917383986</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb627574917383986</string>
+        </array>
+      </dict>
     </array>
   </dict>
 </plist>

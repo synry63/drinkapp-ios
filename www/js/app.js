@@ -238,7 +238,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
       updateUser:function(user,callback){
         $http({
           method: 'POST',
-          url: 'http://superapi.drinkapp.pe/drinkapp_src/updateUser',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/updateUser_v2',
           data:user,
           withCredentials: false,
           headers: {
@@ -469,7 +469,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
         }
         $http({
           method: 'POST',
-          url: 'http://superapi.drinkapp.pe/drinkapp_src/addPedido_v4',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/addPedido_v5',
           data:data,
           withCredentials: false,
           headers: {

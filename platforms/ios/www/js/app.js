@@ -289,7 +289,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
         dir.id_user = cachedUser.id;
         $http({
           method: 'POST',
-          url: 'http://superapi.drinkapp.pe/drinkapp_src/editDireccion_v2',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/editDireccion_v3',
           data:dir,
           withCredentials: false,
           headers: {
@@ -313,7 +313,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
         dir.id_user = cachedUser.id;
         $http({
           method: 'POST',
-          url: 'http://superapi.drinkapp.pe/drinkapp_src/addDireccion_v2',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/addDireccion_v3',
           data:dir,
           withCredentials: false,
           headers: {
@@ -353,6 +353,28 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
       },
       is_min_amount_ok:function(){
         return min_amount_ko;
+      },
+      getDistritosRepartos:function(callback){
+        $http({
+          method: 'GET',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/getDistritos',
+          withCredentials: false,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+
+        }).then(function(resp) {
+          // For JSON responses, resp.data contains the result
+
+
+          callback(resp.status,resp.data);
+
+        }, function(err) {
+          // err.status will contain the status code
+          callback(err.status,err.data.msg);
+          //$scope.error = err.data.msg;
+
+        })
       },
       getLastOrderItems:function(id_order,callback){
         $http({
@@ -469,7 +491,7 @@ angular.module('starter', ['ionic', 'starter.controllers','pasvaz.bindonce','ngM
         }
         $http({
           method: 'POST',
-          url: 'http://superapi.drinkapp.pe/drinkapp_src/addPedido_v5',
+          url: 'http://superapi.drinkapp.pe/drinkapp_src/addPedido_v6',
           data:data,
           withCredentials: false,
           headers: {

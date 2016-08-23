@@ -47,13 +47,8 @@
 
         <label class="item item-input item-select" ng-class="{ 'has-errors' : directionEditForm.distrito.$invalid && directionEditForm.$submitted, 'no-errors' : authorizationForm.nombre.$valid && authorizationForm.$submitted}">
           <div class="input-label">Distrito</div>
-          <select id="distrito" name="distrito" ng-init="edit_dir.distrito=''" ng-model="edit_dir.distrito" required>
+          <select id="distrito" name="distrito" ng-init="edit_dir.distrito=''" ng-model="edit_dir.distrito" ng-options="item as item.nombre for item in distritos track by item.name" required>
             <!--<option value="" disabled hidden></option>-->
-            <option value="san-isidro">San Isidro</option>
-            <option value="san-borja">San Borja</option>
-            <option value="miraflores">Miraflores</option>
-            <option value="surco">Surco</option>
-            <option value="la-molina">La Molina</option>
           </select>
         </label>
         <div class="error-container" ng-show="directionEditForm.distrito.$error && directionEditForm.$submitted" ng-messages="directionEditForm.distrito.$error">

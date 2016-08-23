@@ -158,20 +158,20 @@ angular.module('starter.controllers', [])
           value:""
         };
         new_arr_dir.push(last_item);
-        $scope.email_read_only = true;
+        //$scope.email_read_only = true;
         $scope.user = user;
         $scope.direcciones = new_arr_dir;
         delete $scope.dir;
       }
       else if(user==undefined && $scope.user){ // so no user registered but a user has write data allready
         $scope.user.id = 0;
-        $scope.email_read_only = false;
+        //$scope.email_read_only = false;
         $scope.password_state = { checked: true };
         $scope.dir = {id:0};
 
       }
       else{
-        $scope.email_read_only = false;
+        //$scope.email_read_only = false;
         $scope.password_state = { checked: true };
         $scope.user = {id:0};
         $scope.dir = {id:0};
